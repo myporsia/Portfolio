@@ -1,23 +1,38 @@
-import { Link } from '@remix-run/react';
+import { Link, useLocation } from '@remix-run/react';
+import { useEffect } from 'react';
+import { animate } from 'framer-motion';
 
 export default function Navbar() {
-  const handleScroll = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      // Get the navbar height
-      const navbar = document.querySelector('nav');
-      const navbarHeight = navbar ? navbar.offsetHeight : 0;
-      
-      // Calculate position
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - navbarHeight;
+  const location = useLocation();
 
-      // Smooth scroll
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  const smoothScroll = (targetId: string) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const navbar = document.querySelector('nav');
+    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition - navbarHeight;
+
+    animate(startPosition, startPosition + distance, {
+      duration: 0.6,
+      onUpdate: (value) => window.scrollTo(0, value),
+      ease: [0.32, 0.72, 0, 1] // More natural easing
+    });
+  };
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      smoothScroll(id);
     }
+  }, [location]);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    smoothScroll(id);
+    window.history.pushState(null, '', `#${id}`);
   };
 
   return (
@@ -41,36 +56,41 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-8">
-            <button
-              onClick={() => handleScroll('what-were-building')}
+            <a
+              href="#features"
+              onClick={(e) => handleClick(e, 'features')}
               className="text-gray-600 hover:text-gray-900"
             >
               Features
-            </button>
-            <button
-              onClick={() => handleScroll('how-it-works')}
+            </a>
+            <a
+              href="#how-it-works"
+              onClick={(e) => handleClick(e, 'how-it-works')}
               className="text-gray-600 hover:text-gray-900"
             >
               How It Works
-            </button>
-            <button
-              onClick={() => handleScroll('benefits')}
+            </a>
+            <a
+              href="#benefits"
+              onClick={(e) => handleClick(e, 'benefits')}
               className="text-gray-600 hover:text-gray-900"
             >
               Benefits
-            </button>
-            <button
-              onClick={() => handleScroll('vision')}
+            </a>
+            <a
+              href="#vision"
+              onClick={(e) => handleClick(e, 'vision')}
               className="text-gray-600 hover:text-gray-900"
             >
               Vision
-            </button>
-            <button
-              onClick={() => handleScroll('contact-form')}
+            </a>
+            <a
+              href="#contact-form"
+              onClick={(e) => handleClick(e, 'contact-form')}
               className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
             >
               Get Started
-            </button>
+            </a>
           </div>
         </div>
       </div>

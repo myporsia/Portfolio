@@ -16,23 +16,23 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <main className="pt-16">
+    <main>
       <Hero />
-      <div id="what-were-building" className="scroll-mt-16">
+      <section id="features">
         <Features />
-      </div>
-      <div id="how-it-works" className="scroll-mt-16">
+      </section>
+      <section id="how-it-works">
         <HowItWorks />
-      </div>
-      <div id="benefits" className="scroll-mt-16">
+      </section>
+      <section id="benefits">
         <Benefits />
-      </div>
-      <div id="vision" className="scroll-mt-16">
+      </section>
+      <section id="vision">
         <Vision />
-      </div>
-      <div id="contact-form" className="scroll-mt-16">
+      </section>
+      <section id="contact-form">
         <GetStarted />
-      </div>
+      </section>
     </main>
   );
 } 
