@@ -1,5 +1,5 @@
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import logoDark from "../../public/images/logo.png";
+import logoLight from "../../public/images/logo.png";
 
 export function Welcome() {
   return (
