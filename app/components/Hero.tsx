@@ -23,7 +23,7 @@ export default function Hero() {
           
           <div className="flex gap-4 items-center">
             <a
-              href="https://calendly.com/rohit-suthar-leo/30min"
+              href="https://calendly.com/rohit-myporsia/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
